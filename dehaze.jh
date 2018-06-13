@@ -1,0 +1,205 @@
+
+
+entity Candidate{
+ 	firstName String,
+    lastName String,
+    phoneNumber String,
+    email String,
+    dateOfBirth Date,
+    gender String,
+    passportNumber String,
+    workAuthorisationCategory AuthorisationCategory,
+    nationality String,
+    workAuthorisation String,
+    validity String,
+    currentLocation Location,
+    experienceLevel ExperienceLevel,
+    totalExperienceInYears Integer,
+    totalExperienceInMonths Integer,
+    currentSalaryCurrency SalaryCurrency,
+    currentSalary String,
+    currentSalaryTimeUnit SalaryTimeUnit,
+    skillTags String,
+    resumeTitle String
+}
+
+enum AuthorisationCategory{
+	CITIZEN, VISA_INDEPENDENT, VISA_DEPENDENT, OTHERS
+}
+
+enum SalaryTimeUnit{
+	PER_HOUR, PER_DAY, PER_WEEK, PER_FORTNIGHT, PER_MONTH, PER_YEAR
+}
+
+enum SalaryCurrency{
+	USD, GBP, EUR, INR
+}
+
+enum ExperienceLevel{
+	FRESHER, EXPERIENCED
+}
+
+entity CandidateLanguage{
+	candidateId UUID,
+    languageName String,
+    languageShortName String,
+    fluencyLevel FluencyLevel,
+    read Boolean,
+    write Boolean,
+    speak Boolean
+}
+
+enum FluencyLevel {
+    BASIC, CONVERSATIONAL, PROFICIENT, FLUENT
+}
+
+entity CandidateResume{
+	candidateId UUID,
+    email String,
+    phone String,
+    gitHubLink String,
+    linkedInLink String,
+    pinCode String,
+    fileName String,
+    resumeLocation String,
+    resumeUploadedOn Date
+}
+
+entity CandidateDocuments{
+	candidateId UUID,
+    fileName String,
+    documentLocation String,
+    resumeUploadedOn Date
+}
+
+entity CandidateExperience{
+	candidateId UUID,
+	jobTitle String,
+    company String,
+    location Location,
+    media ExperienceMedia,
+    experienceStartDate Date
+    experienceEndDate Date,
+    // enum of industries which candidate works on
+    industry Industry,
+    experienceDescription String
+}
+
+enum Industry{
+	// Inputs to update this values
+	IT, SOFTWARE, ENGINEERING
+}
+
+entity CandidateSkill{
+	candidateId UUID,
+	skill String,
+    /// version need to allow multiple versions
+    version String,
+    experienceInYears Integer,
+    experienceInMonths Integer
+}
+
+entity CandidateEducation{
+	candidateId UUID,
+	education String,
+    specialization String,
+    otherSpecialization String,
+	universityOrInstitute String,
+    degree String,
+    otherDegree String,
+    courseType CourseType,
+    passingOutYear String,
+    gradingSystem String,
+    gradingSystemValue String
+}
+
+enum CourseType{
+	FULLTYPE, PARTTIME, CORRESPONDENCE_OR_DISTANCE
+}
+
+entity ExperienceMedia{
+	candidateExperienceId UUID,
+	candidateId UUID,
+	title String,
+    description String
+    mediaObjectName String,
+    mediaObjectLocation String,
+    mediaUploadedOn Date
+}
+
+
+entity Location{
+	candidateId UUID,
+	area String,
+    city String,
+    state String,
+	stateCode String,
+    country String,
+    countryCode String,
+   	zipCode String,
+    latitude Double,
+    longitude Double,
+    continent String,
+    continentCode String
+}
+
+entity CandidateAccomplishmentOnlineProfile{
+	candidateInteractionId UUID,
+	// Add links to your projects (e.g. Github links, etc.).
+	socialProfile String,
+    url String,
+    description String
+}
+
+entity CandidateAccomplishmentWorkSample{
+	candidateInteractionId UUID,
+	// Add links to your projects (e.g. Github links, etc.).
+	workTitle String,
+    workSampleUrl String,
+    startedOn Date,
+    endedOn Date,
+    description String
+}
+
+entity CandidateAccomplishmentWhitePaperResearchPublication{
+	candidateId UUID,
+	// Add links to your projects (e.g. Github links, etc.).
+    title String,
+    url String,
+    publishedOn Date,
+    description String
+	
+}
+
+entity CandidateAccomplishmentPatent{
+	candidateId UUID,
+	patentTitle String,
+    patentUrl String,
+    patentOffice String,
+    patentStatus PatentStatus,
+    applicationNumber String,
+    issuedDate Date,
+    description String
+}
+
+entity CandidateAccomplishmentCertification{
+	candidateId UUID,
+	certificationName String,
+    certificationAuthority String,
+    certificationYear String,
+    certificationFileName String,
+    certificationFileLocation String,
+    certificationFileUploadedOn Date
+}
+
+
+// Set pagination options
+// paginate JobHistory, Employee with infinite-scroll
+paginate * with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+// Set an angular suffix
+angularSuffix * with dhz
