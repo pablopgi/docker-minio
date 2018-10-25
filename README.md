@@ -3,6 +3,12 @@
 Minio is an open source object storage server with Amazon S3 compatible API. 
 Build cloud-native applications portable across all major public and private clouds.
 
+# Deploy Minio with Docker
+
+```bash
+docker run -p 9000:9000 --name minio1 -v /mnt/data:/data -v /mnt/config:/root/.minio minio/minio server /data
+```
+
 # Deploy Minio on Docker Swarm
 
 ## Prerequisites
